@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trips Simplified - Plan Your Trip</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="brand">🌍 Trips Simplified</div>
+    <div class="nav-right">
+      <button class="back-btn" onclick="history.back()" title="Back">⬅</button>
+      <a href="landing.html" class="nav-link" title="Home">🏠</a>
+      <div class="profile-dropdown">
+        <button class="nav-link" id="profileBtn">👤</button>
+        <div class="dropdown-content">
+          <a href="login.html" id="loginOption">Login / Signup</a>
+          <a href="index.html" id="tripsOption" style="display:none;">My Trips</a>
+          <a href="#" id="logoutOption"  onclick="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Search Section -->
+  <div class="hero-search fade-in">
+    <h1>Find Your Perfect Trip ✈️</h1>
+    <div class="search-box">
+      <input type="text" placeholder="Where to?" id="destination">
+      <input type="date" id="checkin">
+      <input type="date" id="checkout">
+      <input type="number" placeholder="Guests" id="guests" min="1">
+      <input type="number" placeholder="Budget (₹)" id="budget">
+      <button class="btn" onclick="searchTrips()">Search</button>
+    </div>
+  </div>
+
+  <!-- Popular Destinations -->
+  <div class="section fade-in">
+    <h2>Popular Destinations</h2>
+    <div class="card-container">
+      <div class="card" onclick="selectTrip('Goa', 3, 5500)">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Goa">
+        <div class="card-info"><h3>Goa</h3><p>₹5,500 for 3 nights • ⭐ 4.8</p></div>
+      </div>
+      <div class="card" onclick="selectTrip('Manali', 4, 6200)">
+        <img src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=600&q=80" alt="Manali">
+        <div class="card-info"><h3>Manali</h3><p>₹6,200 for 4 nights • ⭐ 4.7</p></div>
+      </div>
+      <div class="card" onclick="selectTrip('Jaipur', 2, 4800)">
+        <img src="https://images.unsplash.com/photo-1559827291-72ee739d0d9c?auto=format&fit=crop&w=600&q=80" alt="Jaipur">
+        <div class="card-info"><h3>Jaipur</h3><p>₹4,800 for 2 nights • ⭐ 4.6</p></div>
+      </div>
+      <div class="card" onclick="selectTrip('Kerala', 5, 7000)">
+        <img src="https://images.unsplash.com/photo-1600093463592-8a3e31db7a97?auto=format&fit=crop&w=600&q=80" alt="Kerala">
+        <div class="card-info"><h3>Kerala</h3><p>₹7,000 for 5 nights • ⭐ 4.9</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Trips Simplified | Travel Smarter</p>
+    <div class="socials">
+      <a href="#">Twitter</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

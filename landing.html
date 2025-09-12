@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trips Simplified - Landing</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="brand">🌍 Trips Simplified</div>
+    <div class="nav-right">
+      <button class="back-btn" onclick="history.back()" title="Back">⬅</button>
+      <a href="landing.html" class="nav-link" title="Home">🏠</a>
+      <div class="profile-dropdown">
+        <button class="nav-link" id="profileBtn">👤</button>
+        <div class="dropdown-content">
+          <a href="login.html" id="loginOption">Login / Signup</a>
+          <a href="#" id="logoutOption" style="display:none;" onclick="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="landing">
+    <div class="overlay fade-in">
+      <h1>Trips Simplified</h1>
+      <p>Your AI-powered travel partner ✈️</p>
+      <button class="btn" onclick="goToLogin()">Login</button>
+      <button class="btn" style="background:#28a745;" onclick="goToCreate()">Create Account</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Trips Simplified | Made with ❤️ for SIH</p>
+    <div class="socials">
+      <a href="#">Twitter</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function goToLogin() { window.location.href = 'login.html'; }
+    function goToCreate() { window.location.href = 'create-account.html'; }
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Itinerary</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="brand">🌍 Trips Simplified</div>
+    <div class="nav-right">
+      <button class="back-btn" onclick="history.back()" title="Back">⬅</button>
+      <a href="landing.html" class="nav-link" title="Home">🏠</a>
+      <div class="profile-dropdown">
+        <button class="nav-link" id="profileBtn">👤</button>
+        <div class="dropdown-content">
+          <a href="login.html" id="loginOption">Login / Signup</a>
+          <a href="index.html" id="tripsOption" style="display:none;">My Trips</a>
+          <a href="#" id="logoutOption" style="display:none;" onclick="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Itinerary -->
+  <h1 class="fade-in" style="margin-top:120px;">Your Travel Plan ✈️</h1>
+  <div id="itinerary" class="fade-in"></div>
+
+  <a href="dashboard.html"><button class="btn" style="width:auto;margin-top:20px;">Go to Planner Dashboard</button></a>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Trips Simplified | Explore More</p>
+    <div class="socials"><a href="#">Twitter</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
