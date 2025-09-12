@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <title>Your Itinerary</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
     body { background:#f9f9f9; color:#222; }
@@ -17,18 +16,16 @@
     }
     .brand { font-size:1.3rem; font-weight:600; }
     .nav-right { display:flex; align-items:center; gap:15px; }
-    .nav-link, .back-btn {
-      background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;
-    }
+    .nav-link { background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer; }
 
     /* Profile Dropdown */
     .profile-dropdown { position:relative; }
-    .profile-btn, .nav-link#profileBtn {
+    .nav-link#profileBtn {
       background:#0f8a45; border:none; border-radius:50%; width:40px; height:40px;
       display:flex; justify-content:center; align-items:center;
       font-size:1.2rem; cursor:pointer; transition:0.3s;
     }
-    .profile-btn:hover, .nav-link#profileBtn:hover { background:#0c6a35; }
+    .nav-link#profileBtn:hover { background:#0c6a35; }
     .dropdown-content {
       position:absolute; right:0; top:50px;
       background:#fff; color:#333; min-width:150px;
@@ -97,6 +94,15 @@
     .plan-card h3 { margin-bottom:10px; color:#0f8a45; }
     .plan-card p { font-size:0.9rem; line-height:1.5; }
 
+    /* Map Section */
+    #map {
+      width:90%;
+      height:400px;
+      margin:30px auto;
+      border-radius:15px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+
     /* Buttons */
     .btn {
       background:#0f8a45; color:#fff; border:none;
@@ -113,13 +119,6 @@
     }
     .socials a { color:#0f8a45; text-decoration:none; margin:0 5px; }
     .socials a:hover { text-decoration:underline; }
-
-    /* Responsive */
-    @media(max-width:600px) {
-      .hero h1 { font-size:1.5rem; }
-      .trip-details { grid-template-columns:1fr; }
-      .plan-card { padding:15px; }
-    }
   </style>
 </head>
 <body>
@@ -155,11 +154,8 @@
     </div>
   </div>
 
-  <!-- Map Section -->
-<div class="trip-summary fade-in">
-  <h2>Interactive Map</h2>
-  <div id="map" style="height:500px; border-radius:15px; overflow:hidden;"></div>
-</div>
+  <!-- Map -->
+  <div id="map"></div>
 
   <!-- Itinerary Content -->
   <div id="itinerary" class="fade-in"></div>
@@ -174,88 +170,78 @@
     <div class="socials"><a href="#">Twitter</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a></div>
   </footer>
 
-  <script>
-    // Dropdown toggle
-    const profileDropdown = document.getElementById("profileDropdown");
-    profileDropdown.querySelector("#profileBtn").addEventListener("click", () => {
-      profileDropdown.classList.toggle("active");
-    });
-
-    function logout() {
-      localStorage.removeItem("user");
-      alert("Logged out successfully!");
-      window.location.reload();
-    }
-
-    // Load trip data from localStorage (saved from index.html form)
-    document.addEventListener("DOMContentLoaded", () => {
-      const tripData = JSON.parse(localStorage.getItem("tripData"));
-      if (tripData) {
-        document.getElementById("dest").innerText = tripData.destination || "—";
-        document.getElementById("budget").innerText = "₹" + (tripData.budget || "—");
-        document.getElementById("days").innerText = tripData.days || "—";
-        document.getElementById("people").innerText = tripData.people || "—";
-
-    // Initialize Map
-function initMap(destination) {
-  // Use OpenStreetMap + Leaflet
-  const map = L.map('map').setView([20.5937, 78.9629], 5); // default India center
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-
-  // Example: Hardcoded categories (you can extend or fetch dynamically)
-  const mustVisitSpots = [
-    { name: "City Palace", coords: [26.9258, 75.8237], category: "History" },
-    { name: "Adventure Park", coords: [28.7041, 77.1025], category: "Adventure" },
-    { name: "Famous Food Street", coords: [19.076, 72.8777], category: "Food" },
-    { name: "Nightlife Hub", coords: [12.9716, 77.5946], category: "Nightlife" }
-  ];
-
-  mustVisitSpots.forEach(spot => {
-    const icon = L.icon({
-      iconUrl: getIconForCategory(spot.category),
-      iconSize: [32, 32]
-    });
-
-    L.marker(spot.coords, { icon })
-      .addTo(map)
-      .bindPopup(`<b>${spot.name}</b><br>Category: ${spot.category}`);
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Dropdown toggle
+  const profileDropdown = document.getElementById("profileDropdown");
+  profileDropdown.querySelector("#profileBtn").addEventListener("click", () => {
+    profileDropdown.classList.toggle("active");
   });
-}
 
-// Category-based custom icons
-function getIconForCategory(category) {
-  switch(category) {
-    case "History": return "https://cdn-icons-png.flaticon.com/512/3176/3176366.png";
-    case "Adventure": return "https://cdn-icons-png.flaticon.com/512/854/854894.png";
-    case "Food": return "https://cdn-icons-png.flaticon.com/512/3075/3075977.png";
-    case "Nightlife": return "https://cdn-icons-png.flaticon.com/512/854/854992.png";
-    default: return "https://cdn-icons-png.flaticon.com/512/854/854878.png";
+  function logout() {
+    localStorage.removeItem("user");
+    alert("Logged out successfully!");
+    window.location.reload();
   }
-}
 
-// Call after tripData is loaded
-if (tripData && tripData.destination) {
-  initMap(tripData.destination);
-}
+  // Load trip data from localStorage
+  document.addEventListener("DOMContentLoaded", async () => {
+    const tripData = JSON.parse(localStorage.getItem("tripData"));
+    if (tripData) {
+      document.getElementById("dest").innerText = tripData.destination || "—";
+      document.getElementById("budget").innerText = "₹" + (tripData.budget || "—");
+      document.getElementById("days").innerText = tripData.days || "—";
+      document.getElementById("people").innerText = tripData.people || "—";
 
-
-        // Example itinerary generation
-        const itineraryContainer = document.getElementById("itinerary");
-        itineraryContainer.innerHTML = "";
-        for (let i = 1; i <= tripData.days; i++) {
-          const card = document.createElement("div");
-          card.className = "plan-card";
-          card.innerHTML = `
-            <h3>Day ${i}</h3>
-            <p>Activities planned for Day ${i} in ${tripData.destination}. Explore attractions, enjoy food, and relax!</p>
-          `;
-          itineraryContainer.appendChild(card);
-        }
+      // Itinerary cards
+      const itineraryContainer = document.getElementById("itinerary");
+      itineraryContainer.innerHTML = "";
+      for (let i = 1; i <= tripData.days; i++) {
+        const card = document.createElement("div");
+        card.className = "plan-card";
+        card.innerHTML = `
+          <h3>Day ${i}</h3>
+          <p>Activities planned for Day ${i} in ${tripData.destination}. Explore attractions, enjoy food, and relax!</p>
+        `;
+        itineraryContainer.appendChild(card);
       }
-    });
-  </script>
+
+      // 🔹 Fetch coordinates of destination using Nominatim
+      const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(tripData.destination)}`;
+      let lat = 15.2993, lon = 74.1240; // fallback (Goa)
+      try {
+        const res = await fetch(geoUrl);
+        const data = await res.json();
+        if (data.length > 0) {
+          lat = data[0].lat;
+          lon = data[0].lon;
+        }
+      } catch (e) {
+        console.error("Geocoding failed, using fallback", e);
+      }
+
+      // Initialize Map
+      const map = L.map('map').setView([lat, lon], 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Demo markers
+      const spots = [
+        { coords: [lat, lon], name: `${tripData.destination} Center`, type: "Main City" },
+        { coords: [parseFloat(lat)+0.02, lon], name: "Historical Site", type: "History" },
+        { coords: [lat, parseFloat(lon)+0.02], name: "Adventure Park", type: "Adventure" },
+        { coords: [parseFloat(lat)-0.02, lon], name: "Local Restaurant", type: "Food" },
+        { coords: [lat, parseFloat(lon)-0.02], name: "Nightclub", type: "Nightlife" }
+      ];
+
+      spots.forEach(spot => {
+        L.marker(spot.coords).addTo(map)
+          .bindPopup(`<b>${spot.name}</b><br>Category: ${spot.type}`);
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
