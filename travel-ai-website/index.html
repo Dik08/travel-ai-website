@@ -124,14 +124,11 @@
   <div class="navbar">
     <div class="brand">🌍 Trips Simplified</div>
     <div class="nav-right">
-      <button class="back-btn" onclick="history.back()" title="Back">⬅</button>
-      <a href="landing.html" class="nav-link" title="Home">🏠</a>
       <div class="profile-dropdown" id="profileDropdown">
         <button class="profile-btn">👤</button>
         <div class="dropdown-content">
-          <a href="login.html" id="loginOption">Login / Signup</a>
           <a href="index.html" id="tripsOption" style="display:none;">My Trips</a>
-          <a href="#" id="logoutOption" onclick="logout()">Logout</a>
+          <a href="landing.html" id="logoutOption" onclick="logout()">Logout</a>
         </div>
       </div>
     </div>
@@ -147,7 +144,6 @@
         <input type="date" id="checkin" required placeholder=" ">
         <label for="checkin">Check-in</label>
       </div>
-
       <div class="date-input">
         <input type="date" id="checkout" required placeholder=" ">
         <label for="checkout">Check-out</label>

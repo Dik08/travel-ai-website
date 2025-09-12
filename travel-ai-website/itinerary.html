@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Your Itinerary</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
     body { background:#f9f9f9; color:#222; }
@@ -125,14 +127,12 @@
   <div class="navbar">
     <div class="brand">🌍 Trips Simplified</div>
     <div class="nav-right">
-      <button class="back-btn" onclick="history.back()" title="Back">⬅</button>
-      <a href="landing.html" class="nav-link" title="Home">🏠</a>
+      <a href="index.html" class="nav-link" title="Home">🏠</a>
       <div class="profile-dropdown" id="profileDropdown">
         <button class="nav-link" id="profileBtn">👤</button>
         <div class="dropdown-content">
-          <a href="login.html" id="loginOption">Login / Signup</a>
           <a href="index.html" id="tripsOption" style="display:none;">My Trips</a>
-          <a href="#" id="logoutOption" onclick="logout()">Logout</a>
+          <a href="landing.html" id="logoutOption" onclick="logout()">Logout</a>
         </div>
       </div>
     </div>
@@ -154,6 +154,12 @@
       <div><strong>Travelers:</strong> <span id="people"></span></div>
     </div>
   </div>
+
+  <!-- Map Section -->
+<div class="trip-summary fade-in">
+  <h2>Interactive Map</h2>
+  <div id="map" style="height:500px; border-radius:15px; overflow:hidden;"></div>
+</div>
 
   <!-- Itinerary Content -->
   <div id="itinerary" class="fade-in"></div>
@@ -189,6 +195,52 @@
         document.getElementById("budget").innerText = "₹" + (tripData.budget || "—");
         document.getElementById("days").innerText = tripData.days || "—";
         document.getElementById("people").innerText = tripData.people || "—";
+
+    // Initialize Map
+function initMap(destination) {
+  // Use OpenStreetMap + Leaflet
+  const map = L.map('map').setView([20.5937, 78.9629], 5); // default India center
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Example: Hardcoded categories (you can extend or fetch dynamically)
+  const mustVisitSpots = [
+    { name: "City Palace", coords: [26.9258, 75.8237], category: "History" },
+    { name: "Adventure Park", coords: [28.7041, 77.1025], category: "Adventure" },
+    { name: "Famous Food Street", coords: [19.076, 72.8777], category: "Food" },
+    { name: "Nightlife Hub", coords: [12.9716, 77.5946], category: "Nightlife" }
+  ];
+
+  mustVisitSpots.forEach(spot => {
+    const icon = L.icon({
+      iconUrl: getIconForCategory(spot.category),
+      iconSize: [32, 32]
+    });
+
+    L.marker(spot.coords, { icon })
+      .addTo(map)
+      .bindPopup(`<b>${spot.name}</b><br>Category: ${spot.category}`);
+  });
+}
+
+// Category-based custom icons
+function getIconForCategory(category) {
+  switch(category) {
+    case "History": return "https://cdn-icons-png.flaticon.com/512/3176/3176366.png";
+    case "Adventure": return "https://cdn-icons-png.flaticon.com/512/854/854894.png";
+    case "Food": return "https://cdn-icons-png.flaticon.com/512/3075/3075977.png";
+    case "Nightlife": return "https://cdn-icons-png.flaticon.com/512/854/854992.png";
+    default: return "https://cdn-icons-png.flaticon.com/512/854/854878.png";
+  }
+}
+
+// Call after tripData is loaded
+if (tripData && tripData.destination) {
+  initMap(tripData.destination);
+}
+
 
         // Example itinerary generation
         const itineraryContainer = document.getElementById("itinerary");
