@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industry Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #007bff;
+      padding: 10px 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    p {
+      margin-top: 10px;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="landing.html">⬅ Back to Landing Page</a>
+  </nav>
+
+  <div class="container">
+    <h2>Industry Login</h2>
+    <input type="email" id="industryEmail" placeholder="Email" required>
+    <input type="password" id="industryPassword" placeholder="Password" required>
+    <button onclick="industryLogin()">Login</button>
+    <p>Don't have an account? <a href="industry-create-account.html">Create one</a></p>
+  </div>
+
+  <script>
+    function industryLogin() {
+      let email = document.getElementById("industryEmail").value;
+      let password = document.getElementById("industryPassword").value;
+
+      let account = localStorage.getItem(email);
+
+      if (account) {
+        let userData = JSON.parse(account);
+        if (userData.password === password) {
+          alert("Login successful!");
+          window.location.href = "industry-dashboard.html";
+        } else {
+          alert("Incorrect password.");
+        }
+      } else {
+        alert("No account found with this email.");
+      }
+    }
+  </script>
+</body>
+</html>

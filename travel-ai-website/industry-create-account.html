@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Industry Account</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #007bff;
+      padding: 10px 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    p {
+      margin-top: 10px;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="landing.html">⬅ Back to Landing Page</a>
+  </nav>
+
+  <div class="container">
+    <h2>Create Industry Account</h2>
+    <input type="text" id="industryName" placeholder="Industry Name" required>
+    <input type="email" id="industryEmail" placeholder="Email" required>
+    <input type="password" id="industryPassword" placeholder="Password" required>
+    <button onclick="createIndustryAccount()">Create Account</button>
+    <p>Already have an account? <a href="industry-login.html">Login here</a></p>
+  </div>
+
+  <script>
+    function createIndustryAccount() {
+      let name = document.getElementById("industryName").value;
+      let email = document.getElementById("industryEmail").value;
+      let password = document.getElementById("industryPassword").value;
+
+      if (name && email && password) {
+        if (localStorage.getItem(email)) {
+          alert("Account already exists! Please login.");
+        } else {
+          localStorage.setItem(email, JSON.stringify({ name, email, password }));
+          alert("Account created successfully!");
+          window.location.href = "industry-login.html";
+        }
+      } else {
+        alert("Please fill all fields.");
+      }
+    }
+  </script>
+</body>
+</html>

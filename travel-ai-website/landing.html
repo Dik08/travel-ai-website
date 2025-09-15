@@ -16,30 +16,9 @@
     }
     .brand { font-size:1.3rem; font-weight:600; }
     .nav-right { display:flex; align-items:center; gap:15px; }
-    .nav-link, .back-btn {
+    .nav-link {
       background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;
     }
-
-    /* Profile Dropdown */
-    .profile-dropdown { position:relative; }
-    .profile-btn, .nav-link#profileBtn {
-      background:#0f8a45; border:none; border-radius:50%; width:40px; height:40px;
-      display:flex; justify-content:center; align-items:center;
-      font-size:1.2rem; cursor:pointer; transition:0.3s;
-    }
-    .profile-btn:hover, .nav-link#profileBtn:hover { background:#0c6a35; }
-    .dropdown-content {
-      position:absolute; right:0; top:50px;
-      background:#fff; color:#333; min-width:150px;
-      border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      display:none; flex-direction:column; overflow:hidden;
-    }
-    .dropdown-content a {
-      padding:12px; text-decoration:none; color:#333; font-size:0.9rem;
-      transition:0.3s;
-    }
-    .dropdown-content a:hover { background:#f1f1f1; }
-    .profile-dropdown.active .dropdown-content { display:flex; }
 
     /* Hero Section */
     .landing {
@@ -64,11 +43,13 @@
       background:#0f8a45; color:#fff; border:none;
       padding:12px 25px; border-radius:25px;
       font-size:1rem; cursor:pointer; transition:0.3s;
-      margin:5px;
+      margin:5px; display:inline-block;
     }
     .btn:hover { background:#0c6a35; }
     .btn.alt { background:#28a745; }
     .btn.alt:hover { background:#1e7c32; }
+    .btn.partner { background:#007bff; }
+    .btn.partner:hover { background:#0056b3; }
 
     /* Footer */
     footer {
@@ -77,15 +58,6 @@
     }
     .socials a { color:#0f8a45; text-decoration:none; margin:0 5px; }
     .socials a:hover { text-decoration:underline; }
-
-    /* Fade-in animation */
-    .fade-in {
-      animation:fadeIn 1s ease forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity:0; transform:translateY(20px); }
-      to { opacity:1; transform:translateY(0); }
-    }
   </style>
 </head>
 <body>
@@ -93,7 +65,7 @@
   <div class="navbar">
     <div class="brand">🌍 Trips Simplified</div>
     <div class="nav-right">
-      
+      <a href="landing.html" class="nav-link" title="Home">🏠</a>
     </div>
   </div>
 
@@ -104,6 +76,7 @@
       <p>Your AI-powered travel partner ✈️</p>
       <button class="btn" onclick="goToLogin()">Login</button>
       <button class="btn alt" onclick="goToCreate()">Create Account</button>
+      <button class="btn partner" onclick="goToIndustry()">For Partners</button>
     </div>
   </div>
 
@@ -118,18 +91,7 @@
   <script>
     function goToLogin() { window.location.href = 'login.html'; }
     function goToCreate() { window.location.href = 'create-account.html'; }
-
-    // Dropdown toggle
-    const profileDropdown = document.getElementById("profileDropdown");
-    profileDropdown.querySelector("#profileBtn").addEventListener("click", () => {
-      profileDropdown.classList.toggle("active");
-    });
-
-    function logout() {
-      localStorage.removeItem("user");
-      alert("Logged out successfully!");
-      window.location.reload();
-    }
+    function goToIndustry() { window.location.href = 'industry-login.html'; }
   </script>
 </body>
 </html>
